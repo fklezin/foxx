@@ -89,13 +89,8 @@
 
         return params;
     };
-
-    /**
-     * Vrže izjemo če je request token nepravilen.
-     * Ta token je za enkrat kar shardcodiran, druga se ne splača delat dokler si ne uredimo ssl cartifikata.
-     */
     Request.validateToken = function (token) {
-        if(token != "JncCfXKasUtOtWeOjlymSJFVfUHcK0Ee") throw new InvalidTokenError();
+        if(token != "NOREFACTOR") throw new InvalidTokenError();
     };
 
     exports.Instance = Request;
