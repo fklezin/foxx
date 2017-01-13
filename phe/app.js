@@ -18,45 +18,58 @@
     var DB = Arangodb.db;
 
     /**
-     * General search
+     * GET LEADERBOARD
      */
-    var test = new Request();
-    test.setAction(function (req, res) {
+    var getLeaderboard = new Request();
+    getLeaderboard.setAction(function (req, res) {
         res.set("Content-Type", "application/json; charset=UTF-8");
-        /*var params = Request.getParams(req);
-
-        //validate params
-        if(typeof params.word == "undefined" || params.word == ""){
-            return Response.newJsonResponse([]);
-        }
-        params.word = "%"+params.word+"%"
+        var params = Request.getParams(req);
 
         //prepare query
         var aql = "" +
-            "FOR destination IN MergedDestinations "+
-                "LET destinationName = LOWER(destination.destinationName) "+
-
-                "LET regionFound = LENGTH( "+
-                    "FOR region IN destination.regions "+
-                    "FILTER LOWER(region) LIKE @word "+
-                    "LIMIT 0, 1 "+
-                    "RETURN region "+
-                ") > 0 "+
-
-            "FILTER destinationName LIKE @word OR regionFound "+
-            "RETURN {\"_key\": destination._key, \"destinationName\":destination.destinationName}";
+            "FOR record IN Leaderboard "+
+                "SORT record.score DESC "+
+                "LIMIT 0, 20 "+
+                "RETURN record";
 
         //create aql statement and execute it
         try{
             var s = DB._createStatement({"query": aql});
-            s.bind("word", params.word);
             var r = s.execute().toArray();
             return Response.newJsonResponse(r);
         }catch (e){
             throw GeneralError.fromError(e);
-        }*/
+        }
     });
-    test.attach("/jan123");
+    getLeaderboard.attach("/leaderboard");
+
+    /**
+     * INSERT RECORD
+     */
+    var insertRecord = new Request();
+    insertRecord.setAction(function (req, res) {
+        res.set("Content-Type", "application/json; charset=UTF-8");
+        var params = Request.getParams(req);
+
+        //validate params
+        if(typeof params.user == "undefined" || params.user == ""){
+            return Response.newJsonResponse(["wrongparams",params.user]);
+        }
+
+        //prepare query
+        var aql = "LET doc="+params.user+
+                  " INSERT doc INTO Leaderboard ";
+        //create aql statement and execute it
+        try{
+            var s = DB._createStatement({"query": aql});
+            //s.bind("user", params.user);
+            var r = s.execute().toArray();
+            return Response.newJsonResponse(r);
+        }catch (e){
+            throw GeneralError.fromError(e);
+        }
+    });
+    insertRecord.attach("/insertRecord");
 
 
 }());
