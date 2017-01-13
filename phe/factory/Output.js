@@ -42,6 +42,14 @@
     };
 
 
+    Output.getLogString = function (data) {
+        var str = "";
+        str += "=== ["+this._getCallInfo()+"] ===\n";
+        if(typeof data == "object") data = JSON.stringify(data, null, 4);
+        str += data;
+        return str;
+    };
+
     /**
      * Debug log
      */

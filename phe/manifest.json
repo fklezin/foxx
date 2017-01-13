@@ -1,12 +1,12 @@
 {
-  "name": "pheidippides",
+  "name": "ibe",
   "version": "1.7.0",
-  "description": "Game leaderboard",
-  "author": "rdeciZmaji",
+  "description": "Main ibe webservice.",
+  "author": "u-centrix d.o.o.",
   "development": true,
 
   "engines": {
-    "arangodb": "~3.0"
+    "arangodb": "~2.7"
   },
 
   "controllers": {

@@ -5,8 +5,10 @@
 # ./foxx_install.sh <flag>
 #
 
-HELP="./foxx_install.sh <flag>     (flag: -i = install, -u = update)"
+HELP="./foxx_install.sh <flag> <database='converted'>    (flag: -i = install, -u = update; )"
+
 DATABASE="pheidippides"
+LOCAL_PASS="root"
 DEVELOPMENT=0
 
 ##
@@ -22,16 +24,20 @@ if [[ -n $1 ]]; then
         exit
     fi
 fi
-if [[ $# -gt 1 ]]; then
+if [[ $# -lt 1 ]]; then
     echo $HELP
     exit
 fi
 
+if [[ -n $2 ]]; then
+    DATABASE=$2
+fi
+
 ##
 # prepare foxx-manager params
-foxxManagerAuthParam="true"
+foxxManagerPassParam=""
 if [[ $DEVELOPMENT -eq 1 ]]; then
-    foxxManagerAuthParam="false"
+    foxxManagerPassParam="--server.password "$LOCAL_PASS
 fi
 
 foxxManagerActionParam="upgrade"
@@ -42,7 +48,7 @@ fi
 
 ##
 # install / upgrade /ibe webservice
-foxx-manager --server.authentication $foxxManagerAuthParam --server.database=$DATABASE $foxxManagerActionParam "phe" "/phe"
+foxx-manager --server.authentication true --server.database=$DATABASE $foxxManagerPassParam $foxxManagerActionParam "phe" "/phe"
 if [[ $DEVELOPMENT -eq 1 ]]; then
-    foxx-manager --server.authentication $foxxManagerAuthParam --server.database=$DATABASE development "/phe"
+    foxx-manager --server.authentication true --server.database=$DATABASE $foxxManagerPassParam development "/phe"
 fi

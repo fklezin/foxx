@@ -9,6 +9,7 @@
     var Controller = new _Controller(applicationContext);
     var Response = require("./Response").Instance;
     var GeneralError = require("./GeneralError").Instance;
+    var InvalidTokenError = require("./InvalidTokenError").Instance;
     var Output = require("./Output").Instance;
 
     /**
@@ -54,15 +55,19 @@
 
             if(method == Request.METHOD_GET){
                 Controller.get(url, function (req, res) {
-                    Output.response(res, that.getResponse(req, res));
-                }).errorResponse(GeneralError, 0, null, function (e) {
-                    return Response.newErrorResponse(e);
+                    try{
+                        Output.response(res, that.getResponse(req, res));
+                    }catch (e){
+                        Output.response(res, Response.newErrorResponse(e));
+                    }
                 });
             }else if(method == Request.METHOD_POST){
                 Controller.post(url, function (req, res) {
-                    Output.response(res, that.getResponse(req, res));
-                }).errorResponse(GeneralError, 0, null, function (e) {
-                    return Response.newErrorResponse(e);
+                    try{
+                        Output.response(res, that.getResponse(req, res));
+                    }catch (e){
+                        Output.response(res, Response.newErrorResponse(e));
+                    }
                 });
             }
         }
@@ -74,7 +79,6 @@
     Request.getParams = function (req) {
         var params = {};
 
-        Output.log(req);
         if(typeof req.requestBody != "undefined"){
             try{
                 params = JSON.parse(req.requestBody);
@@ -83,8 +87,15 @@
             params = req.parameters;
         }
 
-        Output.log(params);
         return params;
+    };
+
+    /**
+     * Vrže izjemo če je request token nepravilen.
+     * Ta token je za enkrat kar shardcodiran, druga se ne splača delat dokler si ne uredimo ssl cartifikata.
+     */
+    Request.validateToken = function (token) {
+        if(token != "JncCfXKasUtOtWeOjlymSJFVfUHcK0Ee") throw new InvalidTokenError();
     };
 
     exports.Instance = Request;

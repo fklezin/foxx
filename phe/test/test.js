@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8529/_db/pheidippides/phe/test",
+        url: "http://localhost:8529/_db/pheidippides/phe/jan123",
         data: JSON.stringify(params),
 
         success: function (response) {
