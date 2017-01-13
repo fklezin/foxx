@@ -56,7 +56,7 @@
             throw GeneralError.fromError(e);
         }
     });
-    generalSearch.attach("/test");
+    test.attach("/test");
 
     /**
      * tocAdmin

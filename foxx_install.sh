@@ -7,7 +7,7 @@
 
 HELP="./foxx_install.sh <flag>     (flag: -i = install, -u = update)"
 DATABASE="pheidippides"
-DEVELOPMENT=1
+DEVELOPMENT=0
 
 ##
 # get install or update params
