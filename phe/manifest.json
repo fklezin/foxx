@@ -1,8 +1,8 @@
 {
-  "name": "ibe",
+  "name": "phedippides",
   "version": "1.7.0",
-  "description": "Main ibe webservice.",
-  "author": "u-centrix d.o.o.",
+  "description": "Leaderboard webservice.",
+  "author": "rdecizmaji",
   "development": true,
 
   "engines": {
