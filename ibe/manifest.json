@@ -1,0 +1,15 @@
+{
+  "name": "pheidippides",
+  "version": "1.7.0",
+  "description": "Game leaderboard",
+  "author": "rdeciZmaji",
+  "development": true,
+
+  "engines": {
+    "arangodb": "~3.0"
+  },
+
+  "controllers": {
+    "/": "app.js"
+  }
+}

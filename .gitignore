@@ -1,0 +1,10 @@
+##
+# gitignore file
+#
+
+# za intellij editorje
+.idea/
+*.iml
+
+# .DS_Store
+*.DS_Store
