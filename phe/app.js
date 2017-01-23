@@ -53,7 +53,7 @@
 
         //validate params
         if(typeof params.user == "undefined" || params.user == ""){
-            return Response.newJsonResponse(["wrongparams",params.user]);
+            return Response.newJsonResponse(["wrongparams",params]);
         }
 
         //prepare query
