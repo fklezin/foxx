@@ -51,10 +51,10 @@
         res.set("Content-Type", "application/json; charset=UTF-8");
         var params = Request.getParams(req);
 
-        //validate params
+        /*validate params
         if(typeof params.user == "undefined" || params.user == ""){
             return Response.newJsonResponse(["wrongparams",params]);
-        }
+        }*/
 
         //prepare query
         var aql = "LET doc="+params.user+
