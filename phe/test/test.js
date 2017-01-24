@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     var params = {
-        "user": "{'user':'assd','score':23233562}"
+        "user": "{'user':'assd','score':1235}"
     };
 
     $.ajax({
